@@ -19,7 +19,7 @@ Node js use
 
 // Node on cmd
 // node REPL - read eval print loop
-
+//  NOTE:
 // Tab - Global variable available in Node
 // _ variable is previous result
 // fs. or http. Tab - all methods and properties
@@ -83,6 +83,7 @@ console.log('Writing file');
 // __dirname is where current file is located
 // Top level code - so we can do synchronous task here
 
+// NOTE:
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, 'utf-8');
 const dataObj = JSON.parse(data);
 const tempOverview = fs.readFileSync(`${__dirname}/templates/template-overview.html`, 'utf-8');
@@ -97,6 +98,7 @@ const slugs = dataObj.map((cur) =>
 );
 console.log(slugs);
 
+// NOTE:
 const server = http.createServer((req, res) => {
     // Browser make request for favicon.ico
     const reqUrl = url.parse(req.url, true);
@@ -144,6 +146,7 @@ const server = http.createServer((req, res) => {
     }
 });
 
+// NOTE:
 server.listen(8000, '127.0.0.1', () => {
     console.log('Listening to requests on port 8000');
 }); // Port Number,Ip of localhost

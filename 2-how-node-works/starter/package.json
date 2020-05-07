@@ -1,0 +1,11 @@
+{
+  "name": "starter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start-event": "set UV_THREADPOOL_SIZE=4 & nodemon event-loop.js"
+  },
+  "author": "Dev Baweja",
+  "license": "MIT"
+}

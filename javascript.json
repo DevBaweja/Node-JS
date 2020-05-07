@@ -1,0 +1,169 @@
+{
+
+	"Print to console": {
+		"prefix": "log",
+		"body": [
+			"console.log('$1');"
+		],
+		"description": "Log output to console"
+	},
+	"Reading File": {
+		"prefix": "createReadFile",
+		"body": [
+			"fs.readFile(`${__dirname}/${filename}`, (err, data) => {",
+			"    if (err) return console.log(err.message);",
+			"    if (data) console.log(data);",
+			"});",
+			"$0"
+		],
+		"description": "Reading file async ie Non blocking code"
+
+	},
+	"Creating Server": {
+		"prefix": "createServer",
+		"body": [
+			"const url = requires('url');",
+			"const server = require('http').createServer();",
+			"server.on('request', (req, res) => {",
+			"    const reqUrl = url.parse(req.url, true);",
+			"    res.writeHead(200, {",
+			"        'Content-type': 'application/json',",
+			"    });",
+			"    res.end(",
+			"        JSON.stringify([",
+			"            {",
+			"                data: 'value',",
+			"            },",
+			"        ])",
+			"    );",
+			"});",
+			"server.on('close', () => {",
+			"    console.log('Server Closed');",
+			"});",
+			"server.listen(8000, 'localhost', () => {",
+			"    console.log('Listening to http://localhost:8000');",
+			"});",
+			"$0"
+		],
+		"description": "Creating Server"
+	},
+	"Async Await Promises with fetch": {
+		"prefix": "createFetch",
+		"body": [
+			"async function getData(input) {",
+			"    const result = await fetch(`url/${input}`)",
+			"    const data = await result.json();",
+			"    return data;",
+			"}",
+			"getData(input)",
+			".then(data => {",
+			"    console.log(data);",
+			"})",
+			".catch(error => {",
+			"    console.log('Error');",
+			"});",
+			"$0"
+		],
+		"description": "Get data with async await using fetch api"
+	},
+	"Async Await Promises with axios": {
+		"prefix": "createAxios",
+		"body": "",
+		"description": ""
+	},
+	"Event Emnitter Class": {
+		"prefix": "createEvent",
+		"body": [
+			"const EventEmitter = require('events');",
+			"class Emitter extends EventEmitter {",
+			"    constructor() {",
+			"        super();",
+			"    }",
+			"}",
+			"const emitter = new Emitter();",
+			"emitter.on('${anyevent}', ()=>{",
+			"    console.log('Event Occur');",
+			"});",
+			"emitter.emit('${anyevent}');",
+			"$0"
+		],
+		"description": "Creating event emiiter"
+	},
+	"Readable Stream": {
+		"prefix": "createReadableStream",
+		"body": [
+			"const readable = fs.createReadStream('${filename}');",
+			"readable.on('data', (chunk) => {",
+			"    res.write(chunk);",
+			"});",
+			"readable.on('end', () => {",
+			"    res.end();",
+			"});",
+			"readable.on('error', (err) => {",
+			"    console.log(err);",
+			"    res.statusCode = 500;",
+			"    res.end('File not found');",
+			"});",
+			"$0"
+		],
+		"description": "Creating readable stream"
+	},
+	"Readable Stream Using Pipe": {
+		"prefix": "createPipe",
+		"body": [
+			"const readable = fs.createReadStream('${filename}');",
+			"readable.pipe(res);"
+		],
+		"description": "Creating readable stream using pipe"
+	},
+	"CommonJS and ES Modules": {
+		"prefix": "createModule",
+		"body": [
+			"/*",
+			"ES Modules - Client Side",
+			"CommmonJS Modules - Server Side",
+
+			"CommonJS Modules",
+			"Use module.exports to export single class or function",
+			"module.exports = class ClassName{",
+			"  constructor(){",
+
+			"    }",
+			"};",
+			"const ClassName = require('core');",
+			"new ClassName();",
+
+			"ES Modules",
+			"export default class ClassName{",
+			"    constructor(){",
+
+			"    }",
+			"};",
+			"import ClassName from './models'",
+			"new ClassName();",
+
+
+			"CommonJs Modules",
+			"Use exports to export multiple named variables",
+			"exports.functionName = () => {",
+
+			"};",
+			"const {functionName} = require('core');",
+			"functionName();",
+			"const core = require('core');",
+			"core.functionName();",
+
+			"ES Modules",
+			"export const functionName = () => {",
+
+			"};",
+			"import {functionName} from './views'",
+			"functionName()",
+			"import * as objView from './views'",
+			"objView.functionName()",
+			"*/",
+			"$0"
+		],
+		"description": "How CommonJs and ES Modules Works"
+	}
+}

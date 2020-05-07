@@ -149,7 +149,8 @@ Event Loop - Provided by libuv
 */
 /*
 All application code that is inside callback function
-Event driven architecture
+
+Event driven architecture : 
 
 Events are emitted
 Event loop picks them up
@@ -172,15 +173,50 @@ Phases
 Process.nexttick() Queue
 Other Microtasks Queue (Resolved promises)
 
+Nodejs
+Single thread with event loop - Scalable
+Danger of blocking single thread
+
+Php on Apache server
+New thread for each new user - Resource Intensive
+No danger of blocking 
+
 */
 
 /*
 Don't block event loop
 */
+/*
+Don't use sync verison of function in fs,crypto,zlib modules in your callbacks functions
+Don't perform complex calculations
+Be careful with Json in large object ( parse and stringify )
+Don't use too complex regular exPressions ( nested quantifiers or back references )
 
-// Don't use sync verison of function in fs,crypto,zlib modules in your callbacks functions
-// Don't perform complex calculations
-// Be careful with Json in large object ( parse and stringify )
-// Don't use too complex regular exoressions ( nested quantifiers or back references )
+Manully offloading to thread pool or child processes
 
-// Manully offloading to thread pool or child processes
+Sync version of function can be used in top level code 
+Async version with callbacks can be used inside event loop
+JSON.parse(json)
+JSON.stringify(js object)
+*/
+
+/*
+Events and Event-Driven Architecture
+*/
+/*
+Event Emitters - emits events and then Event Listeners - listen events and calls attached callbacks functions
+// NOTE:
+const http = require('http');
+const server = http.createServer();
+server.on('request',(req,res) => {
+    console.log('Request Received');
+    res.end('Request Received');
+})
+server.listen(8000,'localhost',() => {
+    console.log('Listening to requests on http://localhost:8000');
+})
+
+server is instance of Nodejs EventEmitter class
+OBSERVER Pattern - there is an observer (Event Listener) which keeps observing the subject (Event Emitter) 
+which will eventually emit event that listener is waiting for
+*/
