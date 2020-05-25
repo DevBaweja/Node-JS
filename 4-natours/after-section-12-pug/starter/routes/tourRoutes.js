@@ -1,7 +1,6 @@
 const express = require('express');
 const tourController = require('../controllers/tourController');
 const authController = require('../controllers/authController');
-// const reviewController = require('../controllers/reviewController');
 const reviewRouter = require('./reviewRoutes');
 
 const router = express.Router();
@@ -34,7 +33,6 @@ router
         tourController.getMonthlyPlan
     );
 
-// /tours-within?distance=&center=&unit=
 router
     .route('/tours-within/:distance/center/:latlng/unit/:unit')
     .get(tourController.getToursWithin);
@@ -63,15 +61,4 @@ router
         authController.restrictTo('admin', 'lead-guide'),
         tourController.deleteTourById
     );
-
-// Nested routes
-/*
-router
-    .route('/:tourId/reviews')
-    .post(
-        authController.protect,
-        authController.restrictTo('user'),
-        reviewController.createNewReview
-    );
-*/
 module.exports = router;

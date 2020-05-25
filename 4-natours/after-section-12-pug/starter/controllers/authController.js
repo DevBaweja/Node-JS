@@ -17,7 +17,7 @@ const createSendToken = (user, statusCode, res) => {
 
     const cookieOptions = {
         expires: new Date(
-            Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60
+            Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
         ),
         httpOnly: true,
     };
@@ -81,6 +81,16 @@ exports.login = catchAsync(async (req, res, next) => {
     createSendToken(user, 200, res);
 });
 
+exports.logout = (req, res) => {
+    const cookieOptions = {
+        expires: new Date(Date.now() + 10 * 1000),
+        httpOnly: true,
+    };
+    res.cookie('jwt', 'loggedout', cookieOptions);
+    res.status(200).json({
+        status: 'success',
+    });
+};
 exports.protect = catchAsync(async (req, res, next) => {
     let token;
     //  Getting token and check if it is there
@@ -89,8 +99,9 @@ exports.protect = catchAsync(async (req, res, next) => {
         req.headers.authorization.startsWith('Bearer')
     ) {
         token = req.headers.authorization.split(' ')[1];
+    } else if (req.cookies.jwt) {
+        token = req.cookies.jwt;
     }
-
     if (!token) {
         return next(
             new AppError(
@@ -126,9 +137,40 @@ exports.protect = catchAsync(async (req, res, next) => {
 
     // Grant access to protected route
     req.user = currentUser;
+    res.locals.user = currentUser;
+
     next();
 });
+// Only for rendered pages, no error !
+exports.isLoggedIn = async (req, res, next) => {
+    if (req.cookies.jwt) {
+        try {
+            // Verification token
+            const decoded = await promisify(jwt.verify)(
+                req.cookies.jwt,
+                process.env.JWT_SECRET
+            );
 
+            // Check if user still exists
+            const currentUser = await User.findById(decoded.id);
+
+            if (!currentUser) {
+                return next();
+            }
+
+            // Check if user changed password after token issued
+            if (currentUser.passwordChangedAfter(decoded.iat)) {
+                return next();
+            }
+
+            // There is log in user
+            res.locals.user = currentUser;
+            return next();
+        } catch (err) {
+            return next();
+        }
+    } else next();
+};
 exports.restrictTo = (...roles) => {
     return (req, res, next) => {
         // Roles is accessed due to closure
