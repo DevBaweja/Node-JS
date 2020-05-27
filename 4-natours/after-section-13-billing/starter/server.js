@@ -246,4 +246,144 @@ Creating route for /checkout-session/:tourId
 And creating session
 
 npm i stripe
+
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+stripe.checkout.sessions.create(options)
+
+options = {
+    payment_method_types: ['card'],
+    success_url: `${req.protocol}://${req.get('host')}/`,
+    cancel_url: `${req.protocol}://${req.get('host')}/tours/${tour.slug}`,
+    costumer_email: req.user.email,
+}
+stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        success_url: `${req.protocol}://${req.get('host')}/`,
+        cancel_url: `${req.protocol}://${req.get('host')}/tours/${tour.slug}`,
+        costumer_email: req.user.email,
+        client_reference_id: req.params.tourId,
+        line_items: [
+            {
+                name: `${tour.name} Tour`,
+                description: tour.summary,
+                images: [
+                    `https://www.natours.dev/img/tours/${tour.imageCover}`,
+                ],
+                amount: tour.price(in cents),
+                currency: 'usd' | 'eur';
+                quantity: 1
+            },
+        ],
+    });
+
+Custom field
+Client reference ID - It allow us to pass data about session that we are currently creating
+
+It is need as once later purchase was successful, we will then get access to this session object again 
+in order to mark booking in dataase
+
+line_items - only have some well defined fields
+images - must be live images (only work once deployed)
+clint_refernce_id - It will need once we book tour (Also after deployed)
+
+npm stripe works only on backend
+For front end we need script
+
+On server add script 
+https://js.stripe.com/v3/
+
+And it expose Stripe
+cont stripe = Stripe(Public_Key)
+
+data-tour-id
+dataset.tourId
+
+await stripe.redirectToCheckout({
+        sessionId: data.session.id,
+    });
+
+Credit Card - 4242 4242 4242 4242
+Month/Date - Anything in future
+
+Setting Emails - Successfully payments
+*/
+/*
+Booking Model
+
+User and Tour as parent ref
+
+Also price is stored so that while displaying booking we don't have to check from Tour document
+as also tour price might be changed then we will not know how much user paid to us
+
+Also paid is stored as admin might want to create booking outside of that using api
+Default is paid as will create mostly by stripe 
+
+Once website is deployed on server we will get access to session object once purchase 
+is complete using stripe webhooks
+
+Simply to put data that we need to create new booking right into url as query 
+string we need to create query string as stripe will make get request to this url
+so we cann't really send  body 
+
+In success url pass all the data
+and create route at / with query string
+add middleware to create booking and also
+redirect to to again / without query string
+res.redirect(req.originalUrl.split('?')[0]);
+*/
+/*
+TODO:
+API
+
+Implement restriction that users can only review tour that they have actually booked
+
+Implement nested bookings routes 
+/tours/:id/bookings
+/users/:id/bookings
+
+Improve tour dates 
+add participants and soldOut field to each date. A date then becomes like instance of the tour
+Then when user books, they need to select one of the dates. A new booking will increase # of participants in the date, untill it is soldOut, so when user book you need to check if tour on selected date is available
+
+Adding api features to bookings also
+
+
+Implement advance authentication features confirm user email, keep user logged in with refresh tokens,
+two factor authentication
+
+Also in admin while delete and updating some resource
+Also in booking confirm password of user
+
+TODO:
+Website
+
+New page for booking
+
+Filtering in website
+
+Adding intermediate page between payment and the tour ie for selecting date
+
+Search functionality for the tour and maybe in my-tours
+
+Better implementation of front-end
+
+Search by dates
+
+Only adding scripts to the that need them
+
+Implement signup form, similar to login form
+
+On tours details page, if user has taken tour, allow them add a review directly
+on website. Implement form for this and also check for time of tour 
+
+Hide entire booking section on the tour details page if current user has already booked
+an tour(also prevent duplicate bookings on model)
+
+Implement like tour functionality with favourite tour page
+
+On user account page, implement My Reviews page where all reviews are displayed, and
+user can edit them
+
+For administrators, implement all Manage pages, where they can CRUD tours, users, update, delete
 */

@@ -19,6 +19,7 @@ const def = {
     slug: String,
     duration: {
         type: Number,
+
         required: [true, getMustHave('duration')],
     },
     maxGroupSize: {
