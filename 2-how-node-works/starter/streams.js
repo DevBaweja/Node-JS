@@ -14,19 +14,19 @@ Streams are instance of EventEmitter class
 All streams can emit and listen to named events
 
 Readable Streams - Consume data
-ex - http requests , fs read streams
+ex - http requests, fs read streams
 
 Events
 data - New piece of data is available to consume 
 end - No more data to consume
 
 Functions
-pipe() - Plugs streams together,passing data from one stream to another
+pipe() - Plugs streams together, passing data from one stream to another
 read()
 
 
 Writable Streams - Write data
-ex - http responses , fs write streams
+ex - http responses, fs write streams
 
 Events
 drain - 
@@ -82,7 +82,7 @@ server.on('request', (req, res) => {
     // Using Pipe
     const readable = fs.createReadStream('test-file.txt');
     readable.pipe(res);
-    
+
     // readableStream.pipe(writeableStream)
 });
 

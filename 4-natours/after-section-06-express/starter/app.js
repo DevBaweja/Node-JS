@@ -129,7 +129,6 @@ and send json in body with JSON.stringify to javascript object
 In express we use res.json()
 and pass javascript object
 */
-
 /*
 API and Restful API design
 
@@ -297,6 +296,7 @@ And req.params have access to all of these variable defined in url
 
 Using :? for optional params
 /api/v1/tours/:id/:x?/:y?
+Also in typescript
 
 In case routing goes to multiple function 
 source code order comes into picture

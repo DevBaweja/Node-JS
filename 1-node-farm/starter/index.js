@@ -2,25 +2,165 @@
 Node js Pros
 */
 // Node application are perfect for building data intensive apps as it is so fast and and scalable
-// Single threaded, based upon event driven,non blocking I/O model
+// Single threaded, based upon event driven, non blocking I/O model
 // Entire stack of js on front-end and back-end
-// NPM
+// NPM - Node Package Manager
 
 /*
 Node js use
 */
 // API with database behind it (preferably non-realtional noSQL MongoDB)
 // Data streaming (Youtube)
-// Real time chat application
-// Server side web application
+// Real time chat application (socket.io)
+// Server side web application (Using Pug as view engine)
 
-// Don't use with heavy server side processing like image manipulation,video conversion,file compression (CPU intensive)
+// Don't use with heavy server side processing like image manipulation, video conversion, file compression (CPU intensive)
 // Ruby on Rails,PHP,Python
 
 // Node on cmd
 // node REPL - read eval print loop
 //  NOTE:
 // Tab - Global variable available in Node
+/*
+
+# Classes
+Array
+ArrayBuffer
+BigInt
+BigInt64Array
+BigUint64Array
+Boolean
+Buffer
+DataView
+Date
+Error
+EvalError
+Float32Array
+Float64Array
+Function
+GLOBAL
+Infinity
+Int8Array
+Int16Array
+Int32Array
+JSON
+Map
+Math
+NaN
+Number
+Object
+Promise
+Proxy
+RangeError
+ReferenceError
+Reflect
+RegExp
+Set
+SharedArrayBuffer
+String
+Symbol
+SyntaxError
+TypeError
+URIError
+URL
+URLSearchParams
+WeakMap
+WeakSet
+WebAssembly
+
+# Special Character
+_
+_error
+
+# Modules
+assert
+async_hooks
+buffer
+child_process
+clearImmediate
+clearInterval
+clearTimeout
+cluster
+console
+crypto
+decodeURI
+decodeURIComponent
+dns
+domain
+encodeURI
+encodeURIComponent
+escape
+eval
+events
+fs
+global
+http
+http2
+https
+inspector
+isFinite
+isNan
+module
+net
+os
+parseFloat
+parseInt
+path
+perf_hooks
+process
+querystring
+readline
+repl
+require
+root
+setImmediate
+setInterval
+setTimeout
+stream
+string_decoder
+stream
+trace_events
+unescape
+url
+util
+v8
+vm
+zlib
+
+# Object
+__defineGetter__
+__defineSetter__
+__lookupGetter__
+__lookupSetter__
+__proto__
+hasOwnProperty
+isPrototypeOf
+propertyIsEnumerable
+toLocaleString
+toString
+valueOf
+
+constructor
+
+*/
+/*
+__dirname gives absolute path always no matter from where it node app is runned
+
+./ is relative path from where node app is runned when in file and other
+so in that case we use __dirname with path.join(__dirname,'public')
+
+In require ./ is current working directory and not where app is run 
+
+
+path.join(__dirname,'public')
+
+The path.join() method joins all given path segments together using the platform-specific separator as a delimiter, then normalizes the resulting path.
+
+Zero-length path segments are ignored. If the joined path string is a zero-length string then '.' will be returned, representing the current working directory.
+
+path.delimiter
+; for Windows
+*/
 // _ variable is previous result
 // fs. or http. Tab - all methods and properties
 
@@ -32,11 +172,12 @@ const slugify = require('slugify');
 
 // In require ./ means current loction of module
 const replaceTemplate = require('./modules/replaceTemplate');
-/*
+
 // Synchronous
 // Blocking code
-const textIn = fs.readFileSync(`./txt/input.txt`,'utf-8')
 // Character EnCoding is needed otherwise we will get buffer
+/*
+const textIn = fs.readFileSync(`./txt/input.txt`,'utf-8')
 
 console.log('Reading File');
 

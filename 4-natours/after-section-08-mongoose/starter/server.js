@@ -120,7 +120,7 @@ const schemaName = new mongoose.Schema({
 const ModelName = mongoose.model('ModelName', schemaName)
 
 ModelName with plural is collection
-const DocumentName = new Tour({ 
+const DocumentName = new ModelName({ 
     key: value
 })
 
@@ -130,6 +130,7 @@ DocumentName.save()
     })
 it will return promise and then method have access to doucment object
 
+The schema.path() function returns the instantiated schema type for a given path
 */
 
 /*
@@ -572,7 +573,7 @@ Model.aggregate([
     },
 ])
 
-We use $ if we want ot apply it as value 
+We use $ if we want tto apply it as value 
 when it is key we simply use it as field
 
 $unwind - it will deconstruct each document 

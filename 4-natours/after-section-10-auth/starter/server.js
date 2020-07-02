@@ -396,7 +396,7 @@ Create random password reset tokens with expiry dates
 Deny access to JWT after password change
 Don't commit sensitive config data to Git
 Don't send error details to clients
-Prevent Corss-Site Request Forgery(csurf package)
+Prevent Cross-Site Request Forgery(csurf package)
 Require re-authentication before high-value action
 Implement blacklist of untrusted JWT
 Confirm user email address after creating account

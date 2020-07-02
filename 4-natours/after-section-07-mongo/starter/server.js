@@ -141,7 +141,8 @@ db.collectionName.find({ $or : [{key :  {$lte : value}} ,{ key : {$gte : value} 
 
 Projection
 
-db.collectionName.find({ $or : [{key :  {$lte : value}} ,{ key : {$gt : value} }] },{ name : 1}).pretty()
+db.collectionName.find(query, projection)
+db.collectionName.find({ $or : [{key :  {$lte : value}} ,{ key : {$gt : value} }] },{ name : 1, _id: 0}).pretty()
 
 ## Update documents
 db.collectionName.updateOne(query,{ $set : {key : value} })

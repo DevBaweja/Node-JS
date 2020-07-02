@@ -12,9 +12,7 @@ exports.aliasTopBest = (req, res, next) => {
     next();
 };
 exports.aliasTopCheap = (req, res, next) => {
-    req.query.limit = '5';
     req.query.sort = 'price,-ratingsAverage,';
-    req.query.fields = 'name,price,difficulty,ratingsAverage,summary';
     next();
 };
 
@@ -106,7 +104,7 @@ exports.getAllTours = async (req, res) => {
         /*
         url : localhost:3000/api/v1/tours/fields=name,duration,difficulty,price
 
-        req.query.fields = 'name,duration,difficulty,price'
+        // req.query.fields = 'name,duration,difficulty,price'
         After Projection
         query.select('name duration difficulty price')
         */
@@ -324,7 +322,7 @@ exports.getMonthlyPlan = async (req, res) => {
                 },
             },
             {
-                $addFields: { month: '$_id'},
+                $addFields: { month: '$_id' },
             },
             {
                 $project: {

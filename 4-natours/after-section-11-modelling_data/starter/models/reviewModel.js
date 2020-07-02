@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Tour = require('./tourModel');
+
 const { Schema } = mongoose;
 
 const getMustHave = (str) => {
@@ -27,12 +28,12 @@ const def = {
     tour: {
         type: Schema.Types.ObjectId,
         ref: 'Tour',
-        require: [true, 'tour to which it belongs.'],
+        require: [true, getMustHave('tour to which it belongs.')],
     },
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-        require: [true, 'user to which it belongs.'],
+        require: [true, getMustHave('user to which it belongs.')],
     },
 };
 const reviewSchema = Schema(def, option);

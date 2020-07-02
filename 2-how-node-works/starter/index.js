@@ -77,7 +77,7 @@ Ruby on Rail
 */
 
 /*
-Static vs Dynamic
+Static vs Dynamic vs API
 */
 
 /*
@@ -113,7 +113,7 @@ Node Architecture
 */
 /*
 V8 js engines (Js and C++)
-libuv - focus on asynchronous IO,os,file system,networking (C++)
+libuv - focus on asynchronous IO, os, file system, networking (C++)
 Event loop and Thread Pool
 
 Event Loop - executing callbacks,network io

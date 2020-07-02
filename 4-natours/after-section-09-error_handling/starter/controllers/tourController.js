@@ -57,7 +57,6 @@ exports.getTourById = catchAsync(async (req, res, next) => {
 });
 
 exports.createNewTour = catchAsync(async (req, res, next) => {
-
     const tour = await Tour.create(req.body);
 
     res.status(201).json({

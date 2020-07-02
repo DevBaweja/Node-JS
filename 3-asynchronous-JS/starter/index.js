@@ -169,8 +169,13 @@ const getDogPic = async () => {
         const res2Pro = superagent.get(`https://dog.ceo/api/breed/${data}/images/random`);
         const res3Pro = superagent.get(`https://dog.ceo/api/breed/${data}/images/random`);
 
-        const all = await Promise.all([res1Pro,res2Pro,res3Pro]);
-        const imgs = all.map(cur => cur.body.message)
+        // Creates a Promise that is resolved with an array of results when all of the provided Promises resolve, or rejected when any Promise is rejected.
+        const all = await Promise.all([res1Pro, res2Pro, res3Pro]);
+
+        // Creates a Promise that is resolved or rejected when any of the provided Promises are resolved or rejected.
+        const one = await Promise.race([res1Pro, res2Pro, res3Pro]);
+
+        const imgs = all.map(cur => cur.body.message);
         console.log(imgs);
 
         await writeFilePro(`${__dirname}/dog-img.txt`, imgs.join('\n'));

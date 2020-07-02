@@ -8,7 +8,7 @@ which will eventually emit event that listener is waiting for
 const EventEmitter = require('events');
 const state = {};
 state.sale = false;
-state.costumers = [];
+state.costumers = []; 
 state.orders = [];
 
 
@@ -81,4 +81,3 @@ emitter.on('anyevent',()=>{
 });
 emitter.emit('anyevent');
 */
-
